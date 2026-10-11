@@ -230,7 +230,7 @@ NVIDIA 公告的其他 RTX PRO 伺服器夥伴含 Cisco、HPE、Lenovo、ASUS、
 
 ### 自動收集與數據頻率
 
-不是每一種設備都能自動收集。探頭類感測器每秒可得一筆，線上分析儀每 4–60 分鐘一筆，委外檢驗、現場快篩與管道 CCTV 仍需人工或檔案匯入。計費重金屬中的錫、六價鉻等常只能靠實驗室分析，是自動化的主要缺口。
+水污費 13 個計費項目（及檢測申報項目六價鉻）市面上都有線上分析儀可自動收集，但週期從 1 分鐘到 75 分鐘不等。仍無法自動收集的只有四類：法定委外檢驗報告、自動採樣後的實驗室結果、現場快篩、管道 CCTV 檢視。
 
 | 設備 | 自動收集 | 多久一筆 | 依據 |
 | --- | --- | --- | --- |
@@ -241,8 +241,13 @@ NVIDIA 公告的其他 RTX PRO 伺服器夥伴含 Cisco、HPE、Lenovo、ASUS、
 | COD（HORIBA CODA-500） | 是 | 每 60 分鐘 | [型錄](https://static.horiba.com/fileadmin/Horiba/Products/Process_and_Environmental/Water_Pollution/Brochures/CODA-500/Brochure-Automatic_COD_Monitor_CODA-500.pdf) |
 | TOC（Shimadzu TOC-4200） | 是 | 最快每 4 分鐘 | [型錄](https://shimadzu.com/an/toc/online/toc-4200.html) |
 | 氨氮（Hach Amtax sc） | 是 | 最快每 5 分鐘（可設定間隔） | [型錄](https://www.hach.com/p-amtax-sc-ammonia-analyzers/6158000) |
-| 單項重金屬（Hach EZ1000 鋅） | 是 | 每 10 分鐘（含稀釋） | [型錄](https://cdn.hach.com/7FYZVWYB/at/hgmxpgvg8z8jm69t4c3w3w3/DOC0535335169Oct22-EZ1000-Zn.pdf) |
-| 多項重金屬（Metrohm 2060 VA） | 是 | 數十分鐘級※，官方未公開 | 需向廠商確認 |
+| 鋅、銅、鎳（Hach EZ1000／EZ2000） | 是 | 鋅每 10 分鐘（含稀釋） | [型錄](https://cdn.hach.com/7FYZVWYB/at/hgmxpgvg8z8jm69t4c3w3w3/DOC0535335169Oct22-EZ1000-Zn.pdf) |
+| 錫（Kacise KTT600） | 是 | 約每 30 分鐘；量程 0–5 mg/L、檢出限 0.1 mg/L | [型錄](https://www.kcsensor.com/product/online-total-tin-analyzer-ktt600/) |
+| 六價鉻（Hach HMA-Cr6）、總鉻（HMA-TCR） | 是 | 週期未公開；Cr6 量程 0.04–5 mg/L、RS-485 Modbus-RTU | [哈希中國](https://www.hach.com.cn/product/hmajinshu/technical) |
+| 砷（Hach EZ6000） | 是 | 週期未公開 | [哈希中國](https://www.hach.com.cn/product/hmajinshu) |
+| 鉛、鎘等多項重金屬（Metrohm 2060 VA） | 是 | 數十分鐘級※，官方未公開 | [型錄](https://metrohm.com/content/dam/metrohm/shared/documents/brochures/8000/80005490EN.pdf) |
+| 汞（Envea PA-2） | 是 | 反應時間約 1 分鐘 | [型錄](https://envea.global/s/ambient/mercury-monitors-a/pa-2-pa2-gold) |
+| 總氰化物（Hach EZ2000） | 是 | 每 75 分鐘（含稀釋） | [型錄](https://cdn.hach.com/7FYZVWYB/at/4qgb2sqkqkt6bv7mbg67r78z/DOC0535335172Oct22-EZ2000-Cn-tot.pdf) |
 | 氟離子分析儀 | 是 | 約每 5–15 分鐘※ | ※ |
 | 泵浦、閥門、加藥泵狀態 | 是 | 每 1 秒（經 PLC） | ※ |
 | 氣體、漏液偵測 | 是 | 連續，警報即時事件 | ※ |
@@ -250,9 +255,11 @@ NVIDIA 公告的其他 RTX PRO 伺服器夥伴含 Cisco、HPE、Lenovo、ASUS、
 | 人孔液位／流量計（電池供電） | 是 | 每 5–15 分鐘（為省電） | ※ |
 | 攝影機 | 是 | 15–30 fps 串流；AI 辨識以事件為筆 | ※ |
 | 自動採樣器 | 半自動 | 事件觸發留樣；數據依實驗室結果 | 樣品需人工送驗 |
-| 委外檢驗報告 | 否 | 依法定頻率每 3–12 個月 | PDF／Excel OCR 匯入 |
+| 法定委外檢驗報告 | 否 | 依法定頻率每 3–12 個月 | 需由認可實驗室採樣分析；PDF／Excel OCR 匯入 |
 | 鋅現場快篩（Lovibond） | 否 | 依巡檢排程 | 手入或藍牙傳輸※ |
 | 管道 CCTV 機器人 | 否 | 依檢視工程排程 | 影片匯入 |
+
+注意：線上分析儀的檢出限要低於「放流水標準 × 10%」，否則無法佐證減量優惠的免繳級距；各儀器量程需對照該廠適用的標準選型。
 
 **資料量檢核**：以單廠 150 個點位、每分鐘一筆計，每日約 21.6 萬筆，符合「每日至少 20 萬筆」的非功能需求。
 
