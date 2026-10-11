@@ -26,7 +26,7 @@ flowchart TB
     GA["工業交換機・閘道器"]
     GB["工業交換機・閘道器"]
     GN["工業交換機・閘道器"]
-    subgraph L3["L3 終端 IoT 設備（七類）"]
+    subgraph L3["L3 終端 IoT 設備（九類）"]
         D["水質分析儀・水量電量・自動採樣・攝影機・機械執行・安全偵測・PLC/RTU"]
     end
     L1 --> FW -- 單向外連 --> GOV
@@ -41,7 +41,7 @@ flowchart TB
 | --- | --- | --- |
 | L1 中央大腦 | 4U 伺服器，8 × RTX PRO 6000 Blackwell Server Edition，支援 TEE | 每廠 1 台 |
 | L2 中層節點 | NVIDIA GB10 主機＋工業交換機、閘道器、UPS | 每個處理區域 1–2 台 |
-| L3 終端設備 | 七類市售 IoT 設備 | 依廠區盤點 |
+| L3 終端設備 | 九類市售 IoT 設備 | 依廠區盤點 |
 
 ## 中央大腦：8 卡 RTX PRO 6000 Blackwell 伺服器
 
@@ -146,7 +146,7 @@ NVIDIA 公告的其他 RTX PRO 伺服器夥伴含 Cisco、HPE、Lenovo、ASUS、
 
 ## 終端 IoT 設備
 
-終端設備分七類。大多數市售產品都有 4–20 mA 或 Modbus，可直接經工業閘道器接入中層節點。標「※」者為業界常見產品，未逐一查證型錄。
+終端設備分九類。大多數市售產品都有 4–20 mA 或 Modbus，可直接經工業閘道器接入中層節點。標「※」者為業界常見產品，未逐一查證型錄。
 
 ### 1. 水質線上分析儀（對應計費項目）
 
@@ -160,6 +160,7 @@ NVIDIA 公告的其他 RTX PRO 伺服器夥伴含 Cisco、HPE、Lenovo、ASUS、
 | 鋅現場快篩 | [Lovibond 比色計](https://www.nizawa-int.com.tw/article_d.php?lang=tw&tb=4&id=1384) | 手入／檔案匯入 |
 | SS／濁度 | Hach Solitax※、E+H Turbimax※ | 4–20 mA、Modbus |
 | 氟離子 | 離子選擇電極分析儀（Hach※、Metrohm※） | 4–20 mA、Modbus |
+| MLSS／污泥濃度、污泥界面 | Hach※、E+H※ | 4–20 mA、Modbus（M8 好氧孿生） |
 | pH、ORP、導電度、DO | [Yokogawa FLXA21／EXA](https://yokogawa.com/tw/industries/water-wastewater)、E+H Liquiline※、Hach SC 控制器※ | 4–20 mA／HART、Modbus、PROFIBUS |
 
 ### 2. 水量與電量
@@ -211,6 +212,21 @@ NVIDIA 公告的其他 RTX PRO 伺服器夥伴含 Cisco、HPE、Lenovo、ASUS、
 | --- | --- | --- |
 | 工業 IoT 閘道器 | [Advantech ADAM-6717、Siemens SIMATIC IOT2050、Moxa MGate 5105-MB-EIP、Robustel R3000、Elastel EG324](https://ubidots.com/blog/top-industrial-iot-gateways/) | Modbus RTU／TCP 轉 MQTT／OPC UA；ADAM-6717 與 R3000 寬溫 −40 °C 起 |
 | PLC／RTU | [Allen-Bradley、Modicon](https://industrialmonitordirect.com/blogs/knowledgebase/scada-system-selection-guide-for-water-wastewater-plants)、Siemens S7※、Mitsubishi※、Yokogawa STARDOM | 通常已存在，平台先以只讀介接 |
+
+### 8. 設備健康（M10）
+
+| 設備 | 市售產品 | WUCA 用途 |
+| --- | --- | --- |
+| 無線振動／溫度感測器 | 各品牌※（ISA100、藍牙或 4–20 mA） | 泵浦、鼓風機、攪拌機軸承異常與預知保養 |
+| 馬達電流／電力監測 | 多功能電力表※ | 負載異常、能耗統計（M9） |
+
+### 9. 進流與管網（M11，下水道系統廠型）
+
+| 設備 | 市售產品 | WUCA 用途 |
+| --- | --- | --- |
+| 人孔液位／流量計 | 雷達或超音波式（VEGA※、E+H※），電池供電加 NB-IoT／LoRa 傳輸 | 管網水量、溢流與不明水分析 |
+| 管網水質探頭 | pH、導電度、溫度多參數探頭※ | 異常排入預警與上游溯源 |
+| 管道 CCTV 檢視機器人 | 管道檢視車※ | 管段障礙、斷漏紀錄與汰換依據 |
 
 ## 網路與基礎設施
 
