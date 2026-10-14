@@ -11,7 +11,9 @@
 ## 文件
 
 - [硬體清單](docs/hardware-list.md)：三層節點硬體規格、TEE 限制、終端 IoT 設備分類
-- [單廠建置費用試算](docs/cost-estimate.md)：建置與維運費用、政府招標行情、建議招標預算
+- [單廠建置費用試算](docs/cost-estimate.md)：建置與維運費用、精簡方案、政府招標行情、建議招標預算
+- [WUCA 能協助廠長做哪些事](docs/plant-manager-assistant.md)：依廠長五大職責分類的協助項目
+- [廢水資源化與經濟效益](docs/resource-recovery.md)：各場域可回收資源、人造螢石案例、水污費節省試算
 
 ## 系統架構
 
